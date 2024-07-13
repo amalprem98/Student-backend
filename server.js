@@ -31,14 +31,29 @@ app.get("/",(req,res)=>{
         }
         return res.json(data)
     });
-});
+});//Math.floor(Math.random() * (max - min + 1)) + min
 app.post('/create',(req,res)=>{
-    const sql="INSERT INTO Student ('NAME','EMAIL') VALUES(?)";
+    const sql="INSERT INTO Student (ID,NAME,EMAIL) VALUES(?)";
     const values=[
+        req.body.id,
         req.body.name,
         req.body.email
     ];
     db.query(sql,[values],(err,data)=>{
+        console.log(err)
+        if(err) return res.json("Error");
+        return res.json(data);
+    });
+});
+app.put('/update/:id',(req,res)=>{
+    const sql="UPDATE STUDENT SET NAME =? EMAIL=? WHERE ID=?";
+    const values=[
+        req.body.id,
+        req.body.name,
+        req.body.email
+    ];
+    db.query(sql,[values],(err,data)=>{
+        console.log(err)
         if(err) return res.json("Error");
         return res.json(data);
     });
