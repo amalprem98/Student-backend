@@ -59,6 +59,16 @@ app.put('/update/:id',(req,res)=>{
         return res.json(data);
     });
 });
+app.delete('/student/:id',(req,res)=>{
+    const sql="DELETE FROM STUDENT WHERE ID=?";
+    console.log(req.body);
+    const id=req.params.id;
+    db.query(sql,id,(err,data)=>{
+        console.log(err)
+        if(err) return res.json("Error");
+        return res.json(data);
+    });
+});
 
 
 app.listen(port,()=>{
