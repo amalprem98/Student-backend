@@ -46,18 +46,20 @@ app.post('/create',(req,res)=>{
     });
 });
 app.put('/update/:id',(req,res)=>{
-    const sql="UPDATE STUDENT SET NAME =? EMAIL=? WHERE ID=?";
+    const sql="UPDATE STUDENT SET NAME = ?, EMAIL= ? WHERE ID= ?";
+    console.log(req.body);
     const values=[
-        req.body.id,
         req.body.name,
-        req.body.email
+        req.body.email,
+        req.body.id
     ];
-    db.query(sql,[values],(err,data)=>{
+    db.query(sql,values,(err,data)=>{
         console.log(err)
         if(err) return res.json("Error");
         return res.json(data);
     });
 });
+
 
 app.listen(port,()=>{
     console.log(`server listening:${port}`);
